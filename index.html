@@ -3,7 +3,524 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Testing Branch</title>
+    <title>Tech Insights - Modern Blog</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #e74c3c;
+        --light: #ecf0f1;
+        --dark: #1a1a1a;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--primary);
+        background: #f9f9f9;
+      }
+
+      /* Navigation */
+      nav {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+      }
+
+      nav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--secondary);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      nav a:hover {
+        color: var(--secondary);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--secondary) 100%
+        );
+        color: white;
+        padding: 6rem 20px;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: slideDown 0.6s ease-out;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+      }
+
+      .cta-button {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+
+      .cta-button:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Main Container */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Blog Section */
+      .blog-section {
+        padding: 4rem 20px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--primary);
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 4px;
+        background: var(--secondary);
+        border-radius: 2px;
+      }
+
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .blog-card {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .blog-card-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+      }
+
+      .blog-card-content {
+        padding: 1.5rem;
+      }
+
+      .blog-card-category {
+        display: inline-block;
+        background: var(--secondary);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        margin-bottom: 0.8rem;
+        font-weight: bold;
+      }
+
+      .blog-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .blog-card p {
+        color: #666;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+      }
+
+      .blog-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--light);
+        padding-top: 1rem;
+      }
+
+      .blog-date {
+        font-size: 0.85rem;
+        color: #999;
+      }
+
+      .read-more {
+        color: var(--secondary);
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      .read-more:hover {
+        color: var(--accent);
+      }
+
+      /* Featured Post */
+      .featured-post {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        margin-bottom: 3rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .featured-image {
+        background: linear-gradient(135deg, var(--accent), var(--secondary));
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        color: white;
+      }
+
+      .featured-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .featured-label {
+        color: var(--secondary);
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .featured-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--primary);
+        color: white;
+        padding: 3rem 20px;
+        text-align: center;
+      }
+
+      footer .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+        text-align: left;
+      }
+
+      footer h4 {
+        margin-bottom: 1rem;
+        color: var(--secondary);
+      }
+
+      footer a {
+        display: block;
+        color: #bbb;
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        transition: color 0.3s;
+      }
+
+      footer a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        margin-top: 2rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        nav ul {
+          gap: 1rem;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .featured-post {
+          grid-template-columns: 1fr;
+        }
+
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="container">
+        <div class="logo">📝 TechInsights</div>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <h1>Welcome to Tech Insights</h1>
+      <p>Discover the latest trends, tips, and tutorials in technology</p>
+      <button class="cta-button">Start Reading</button>
+    </div>
+
+    <!-- Featured Post -->
+    <div class="blog-section">
+      <div class="container">
+        <div class="featured-post">
+          <div class="featured-image">🚀</div>
+          <div class="featured-content">
+            <span class="featured-label">FEATURED POST</span>
+            <h2>Getting Started with Web Development</h2>
+            <p>
+              Learn the fundamentals of web development and start your coding
+              journey with modern tools and frameworks.
+            </p>
+            <a href="#" class="cta-button" style="width: fit-content"
+              >Read Full Article</a
+            >
+          </div>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <h2 class="section-title" id="blog">Latest Articles</h2>
+        <div class="blog-grid">
+          <!-- Card 1 -->
+          <div class="blog-card">
+            <div class="blog-card-image">💻</div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">JAVASCRIPT</span>
+              <h3>Advanced JavaScript Concepts</h3>
+              <p>
+                Master closures, callbacks, and async/await patterns to write
+                cleaner and more efficient code.
+              </p>
+              <div class="blog-card-footer">
+                <span class="blog-date">Nov 10, 2025</span>
+                <a href="#" class="read-more">Read →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="blog-card">
+            <div class="blog-card-image">⚛️</div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">REACT</span>
+              <h3>React Hooks Deep Dive</h3>
+              <p>
+                Understand how to use React Hooks to manage state and side
+                effects in functional components.
+              </p>
+              <div class="blog-card-footer">
+                <span class="blog-date">Nov 8, 2025</span>
+                <a href="#" class="read-more">Read →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="blog-card">
+            <div class="blog-card-image">🎨</div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">CSS</span>
+              <h3>Modern CSS Grid & Flexbox</h3>
+              <p>
+                Create responsive layouts with CSS Grid and Flexbox. Learn best
+                practices for modern web design.
+              </p>
+              <div class="blog-card-footer">
+                <span class="blog-date">Nov 6, 2025</span>
+                <a href="#" class="read-more">Read →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="blog-card">
+            <div class="blog-card-image">🔐</div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">SECURITY</span>
+              <h3>Web Security Best Practices</h3>
+              <p>
+                Protect your applications from common vulnerabilities and
+                implement security best practices.
+              </p>
+              <div class="blog-card-footer">
+                <span class="blog-date">Nov 4, 2025</span>
+                <a href="#" class="read-more">Read →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="blog-card">
+            <div class="blog-card-image">📱</div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">MOBILE</span>
+              <h3>Responsive Design Tips</h3>
+              <p>
+                Master responsive web design principles to create mobile-first
+                experiences for all devices.
+              </p>
+              <div class="blog-card-footer">
+                <span class="blog-date">Nov 2, 2025</span>
+                <a href="#" class="read-more">Read →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="blog-card">
+            <div class="blog-card-image">🛠️</div>
+            <div class="blog-card-content">
+              <span class="blog-card-category">TOOLS</span>
+              <h3>Essential Developer Tools</h3>
+              <p>
+                Explore the best tools and extensions that will boost your
+                productivity as a developer.
+              </p>
+              <div class="blog-card-footer">
+                <span class="blog-date">Oct 31, 2025</span>
+                <a href="#" class="read-more">Read →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div>
+          <h4>About</h4>
+          <a href="#">About Us</a>
+          <a href="#">Our Team</a>
+          <a href="#">Careers</a>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <a href="#">Documentation</a>
+          <a href="#">Tutorials</a>
+          <a href="#">Code Snippets</a>
+        </div>
+        <div>
+          <h4>Community</h4>
+          <a href="#">Forum</a>
+          <a href="#">Discord</a>
+          <a href="#">Twitter</a>
+        </div>
+        <div>
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Tech Insights. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
 </html>
